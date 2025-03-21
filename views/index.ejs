@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Book & Film App</title>
+    <link rel="stylesheet" href="/css/style.css"> 
+</head>
+<body>
+    <h1>Welcome to Book & Film App </h1>
+    <% if (user) { %>
+    <p> Hello, <%= user.name %>! <a href="/items/dashboard"> Go to dashboard</a> | <a href="/auth/logout"> Logout</a></p>
+    <% } else { %>
+        <p><a href="/auth/register"> Register </a> | <a href="/auth/login">  Login</a></p>
+    <% } %>
+</body>
+</html>

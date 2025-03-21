@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <h1>Dashboard</h1>
+    <p>Hello, <%= user.name %>!</p>  
+    <h2>Add new item</h2>
+    <form action="/items/add" method="POST">
+        <input type="text" name="title" placeholder="Title" required>
+        <select name="type" required>
+            <option value="book">Book</option>
+            <option value="film">Film</option>
+        </select>
+        <input type="text" name="picture_url" placeholder="Picture URL">
+        <button type="submit">Add item </button>
+    </form>
+    <h2>Items</h2>
+    <ul id="items">
+        <% items.forEach(item => { %>
+            <li>  
+                <%= item.title %> (<%= item.type %>)
+                <a href="/items/view/<%= item.id %>">View</a>
+                <% if(item.type === 'book') { %>
+                    <button onclick="speak('<%= item.title %>')">🔊</button>
+                <% } %>
+                <% if(item.user_id === user.id) { %>
+                    <form action="/items/delete/<%= item.id %>" method="post" style="display: inline;">
+                        <button type="submit">Delete</button>
+                    </form>
+                <% } %>
+            </li>
+        <% }) %>
+    </ul>
+    <a href="/auth/logout">Logout</a>
+
+    <script>
+        function speak(text) {
+            const utterance = new SpeechSynthesisUtterance(text);
+            speechSynthesis.speak(utterance);
+        }
+    </script>
+</body>
+</html>
